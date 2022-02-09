@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">{{ button_label|default('Save') }}</i></i></button>
+    <a href="{{ path('suscripcion_index') }}">
+        <button type="button" class="btn btn-info"> 
+            Back to list <i class="fas fa-arrow-left"></i> 
+        </button>  
+    </a>
+{{ form_end(form) }}

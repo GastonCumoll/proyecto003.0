@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block nav %}
+
+
+<ul class="nav nav-tabs bg-light text-dark mr-1 ml-1">
+    <li class="nav-item">
+        <a class="nav-link" href="{{path('loged_in')}}">
+            <i class="fas fa-home" style></i>
+            Home
+        </a>
+    </li>
+
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fas fa-newspaper"></i></i> Publicaciones</a>
+        <div class="dropdown-menu">
+            
+            {% for unRol in usuario.roles %}
+                {% if unRol == "ROLE_ADMIN" %}
+                    <a class="dropdown-item" href="{{path('publicacion_index')}}">Listado de publicaciones</a>
+                    <a class="dropdown-item" href="{{path('publicacion_new')}}">Crear Publicacion</a>
+                {% endif %}
+            {% endfor %}
+
+            <a class="dropdown-item" href="{{path('publicacion_usuario')}}">Mis publicaciones</a>
+            <a class="dropdown-item" href="{{path('tipo_publicacion_index')}}">Tipos de publicacion</a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fas fa-book"></i></i> Ediciones</a>
+        <div class="dropdown-menu">
+            
+            {% for unRol in usuario.roles %}
+                {% if unRol == "ROLE_ADMIN" %}
+                    <a class="dropdown-item" href="{{path('edicion_index')}}">Listado de Ediciones</a>
+                    <a class="dropdown-item" href="{{path('edicion_new')}}">Crear Edicion</a>
+                {% endif %}
+            {% endfor %}
+
+            <a class="dropdown-item" href="{{path('edicion_usuario')}}">Mis ediciones</a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fas fa-user-check"></i></i> Suscripciones</a>
+        <div class="dropdown-menu">
+            
+            {% for unRol in usuario.roles %}
+                {% if unRol == "ROLE_ADMIN" %}
+                    <a class="dropdown-item" href="{{path('suscripcion_index')}}">Listado de suscripciones</a>
+                    <a class="dropdown-item" href="{{path('suscripcion_new')}}">Crear suscripción</a>
+                {% endif %}
+            {% endfor %}
+
+            <a class="dropdown-item" href="{{path('suscripcion_usuario')}}">Mis Suscripciones</a>
+        </div>
+    </li>
+
+
+    
+        <div class="dropdown text-end" style=" margin-left:auto">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-expanded="false">
+                <i class="far fa-user"></i> {{app.session.get('name')}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{path('user_edit',{'id':usuario.id})}}"><i
+                        class="fas fa-edit"></i> Cambiar Contraseña</a>
+                <a class="dropdown-item" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i> Salir</a>
+            </div>
+        </div>
+    
+</ul> 
+
+{% endblock %}
+
+{% block body %}
+    
+{% endblock  %}

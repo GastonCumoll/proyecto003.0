@@ -1,0 +1,27 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Mis ediciones{% endblock %}
+
+{% block body %}
+<h1 class="text-center">Mis Ediciones</h1>
+{% for edicion in ediciones | reverse %}
+<div class="container mt-3 mb-3">
+    <div class="card text-center shadow mb-5 bg-white rounded">
+        <div class="card-header">
+            {{ edicion.id }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ edicion.getPublicacion().getTitulo() }}</h5>
+            <p class="card-text">{{ edicion.getPublicacion().getTipoPublicacion().getNombre() }}</p>
+            <p class="card-text"> {{ edicion.usuarioCreador }}</p>
+            <a href="{{ path('edicion_show', {'id': edicion.id}) }}" class="btn btn-primary">Ver edición</a>
+        </div>
+        <div class="card-footer text-muted">
+            {{ edicion.fechaDeEdicion ? edicion.fechaDeEdicion|date('Y-m-d H:i:s') : '' }}
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+<br>
+{% endblock %}

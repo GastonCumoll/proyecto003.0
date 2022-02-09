@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notificacion de suscripcion{% endblock %}
+
+{% block body %}
+{% for flash_message in app.session.flashbag.get('notice') %}
+<div class="flash-notice">
+    {{ flash_message }}
+</div>
+{% endfor %}
+    {% endblock %}

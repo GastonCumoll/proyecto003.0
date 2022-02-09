@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publicacion index{% endblock %}
+
+{% block body %}
+<h1 class="text-center">Mis Publicaciones</h1>
+{% for publicacion in publicaciones | reverse %}
+<div class="container mt-3 mb-3">
+    <div class="card text-center shadow mb-5 bg-white rounded">
+        <div class="card-header">
+            {{ publicacion.id }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ publicacion.Titulo }}</h5>
+            <p class="card-text">{{ publicacion.getTipoPublicacion().getNombre() }}</p>
+            <p class="card-text"> {{ publicacion.usuarioCreador }}</p>
+            <a href="{{ path('edicion_show', {'id': publicacion.id}) }}" class="btn btn-primary">Ver Publicación</a>
+        </div>
+        <div class="card-footer text-muted">
+            {{ publicacion.fechaYHora ? publicacion.fechaYHora|date('Y-m-d H:i:s') : '' }}
+        </div>
+    </div>
+</div>
+
+                
+    
+{% endfor %}
+
+{% endblock %}

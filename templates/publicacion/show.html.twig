@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publicacion{% endblock %}
+
+{% block body %}
+    <h1 style="text-align:center" class="font-weight-bold">Publicacion</h1>
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif; margin-top:2rem; font-weight:bold;">
+        <div class="border border-secondary rounded p-3 shadow mb-5 bg-white ">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ publicacion.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titulo</th>
+                        <td>{{ publicacion.titulo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo de publicacion</th>
+                        <td>{{ publicacion.tipoPublicacion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha y hora</th>
+                        <td>{{ publicacion.fechaYHora ? publicacion.fechaYHora|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-4">
+                        <a href="{{ path('publicacion_index') }}">
+                            <button type="button" class="btn btn-info">
+                                Back to list <i class="fas fa-arrow-left"></i> 
+                            </button>  
+                        </a>
+                    </div>
+                    <div class="col-4 text-center">
+                        <a href="{{ path('publicacion_edit', {'id': publicacion.id}) }}">
+                            <button type="button" class="btn btn-success">
+                                Edit <i class="fas fa-edit"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-4 text-right">
+                        {{ include('publicacion/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

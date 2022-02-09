@@ -1,0 +1,27 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Publicacion index{% endblock %}
+
+{% block body %}
+
+{% for publicacion in publicaciones %}
+<div class="container mt-3 mb-3">
+    <div class="card text-center shadow mb-5 bg-white rounded">
+        <div class="card-header">
+            {{ publicacion.id }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ publicacion.getPublicacion().getTitulo() }}</h5>
+            <p class="card-text">{{ publicacion.getPublicacion().getTipoPublicacion().getNombre() }}</p>
+            <p class="card-text"> {{ publicacion.usuarioCreador }}</p>
+            <a href="{{ path('edicion_show', {'id': publicacion.id}) }}" class="btn btn-primary">Ver Publicación</a>
+        </div>
+        <div class="card-footer text-muted">
+            {{ publicacion.fechaYHoraCreacion ? publicacion.fechaYHoraCreacion|date('Y-m-d H:i:s') : '' }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+<br>
+{% endblock %}
+

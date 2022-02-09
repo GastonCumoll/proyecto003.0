@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipoPublicacion index{% endblock %}
+
+{% block body %}
+<div class="w-75 mb-2" style="margin:auto;">
+    <h1 style="text-align:center" class="font-weight-bold">Tipo de publicaciones</h1>
+
+    <div class="border border-secondary rounded p-3 shadow mb-5 bg-white ">
+        <table class="table table-striped table-bordered  table-hover" id="datatable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tipo_publicacion in tipo_publicacions %}
+                <tr>
+                    <td>{{ tipo_publicacion.id }}</td>
+                    <td>{{ tipo_publicacion.nombre }}</td>
+                    <td>
+                        <a href="{{ path('tipo_publicacion_show', {'id': tipo_publicacion.id}) }}">
+                            <button type="button" class="btn btn-outline-primary" style="width: 7rem;">Show</button>
+                        </a>
+                        <a href="{{ path('tipo_publicacion_edit', {'id': tipo_publicacion.id}) }}">
+                            <button type="button" class="btn btn-outline-info" style="width: 7rem;">Edit</button>
+                        </a>
+                        {% set suscripto = 0 %}
+                        {% for suscripcion in suscripciones %}
+                            {% if suscripcion.getTipoPublicacion().getId()==tipo_publicacion.id %}
+                                {% set suscripto = 1 %}                       
+                            {% endif %}
+                            
+                        {% endfor %}
+
+                        {% if suscripto==1 %}
+                            <a href="{{ path('nueva_suscripcion', {'id': tipo_publicacion.id}) }}">
+                                <button type="button" class="btn btn-outline-dark" style="width: 7rem;" disabled>Suscripto <i class="fas fa-check"></i></button>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('nueva_suscripcion', {'id': tipo_publicacion.id}) }}">
+                                <button type="button" class="btn btn-outline-success" style="width: 7rem;">Suscribirse</button>
+                            </a>
+                        {% endif %}
+                        
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br><br>
+        <a href="{{ path('tipo_publicacion_new') }}"><button type="button" class="btn btn-outline-primary" style="width: 5rem;">Crear</button></a>
+    </div>
+</div>
+
+    
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    $(document).ready( function () {
+    $('#datatable').DataTable();
+    
+} );
+</script>
+{% endblock %}
+

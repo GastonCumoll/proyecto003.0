@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Publicacion{% endblock %}
+
+{% block body %}
+
+<h1 style="text-align:center" class="font-weight-bold">Editar publicacion</h1>
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif; margin-top:2rem; font-weight:bold;">
+        <div class="mt-3 p-3 border border-secondary rounded bg-light">
+            {{ include('publicacion/_form.html.twig', {'button_label': 'Update'}) }}
+            <br>
+            <a href="{{ path('publicacion_index') }}">
+                <button type="button" class="btn btn-info"> Back to list <i class="fas fa-arrow-left"></i> </button>  
+            </a>
+            <br><br>
+            {{ include('publicacion/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+    
+{% endblock %}

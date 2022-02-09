@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edicion index{% endblock %}
+
+{% block body %}
+
+<div class="w-75 mb-2" style="margin:auto;">
+    <h1 style="text-align:center" class="font-weight-bold">Ediciones</h1>
+    <div class="border border-secondary rounded p-3 shadow mb-5 bg-white ">
+        <table class="table table-striped table-bordered  table-hover" id="datatable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Título</th>
+                    <th>Fecha De Edicion</th>
+                    <th>Cantidad Impresiones</th>
+                    <th>Usuario Creador</th>
+                    <th>Fecha Y Hora Creacion</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for edicion in edicions %}
+                <tr>
+                    <td>{{ edicion.id }}</td>
+                    <td>{{ edicion.getPublicacion().getTitulo() }}</td>
+                    <td>{{ edicion.fechaDeEdicion ? edicion.fechaDeEdicion|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ edicion.cantidadImpresiones }}</td>
+                    <td>{{ edicion.usuarioCreador}} </td>
+                    <td>{{ edicion.fechaYHoraCreacion ? edicion.fechaYHoraCreacion|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        
+                            <a href="{{ path('edicion_show', {'id': edicion.id}) }}">
+                                <button type="button" class="btn btn-outline-primary" style="width: 5rem;">Show </button>
+                            </a>
+                        
+                            <a href="{{ path('edicion_edit', {'id': edicion.id}) }}">
+                                <button type="button" class="btn btn-outline-info" style="width: 5rem;">Edit</button>
+                            </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            
+        </table>
+        
+        <a href="{{ path('edicion_new') }}"><button type="button" class="btn btn-outline-primary" style="width: 5rem;">Crear</button></a>
+    </div>
+</div>
+<br><br>
+
+
+    
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    $(document).ready( function () {
+    $('#datatable').DataTable();
+    
+} );
+</script>
+{% endblock %}
