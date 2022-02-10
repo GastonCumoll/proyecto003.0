@@ -41,10 +41,6 @@ class SuscripcionSubscriber implements EventSubscriberInterface
         //aca la logica de enviar mail
         //$args= la entidad
         
-
-
-        
-
     }
 
     public function onFlush(OnFlushEventArgs $eventArgs)
@@ -86,7 +82,6 @@ class SuscripcionSubscriber implements EventSubscriberInterface
                 $this->mailer->send($email);
 
             }
-       
         }
 
         foreach ($uow->getScheduledEntityDeletions() as $entity) {

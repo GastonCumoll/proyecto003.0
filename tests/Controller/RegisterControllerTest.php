@@ -5,7 +5,7 @@ namespace App\Tests\Controller;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-
+use Symfony\Bundle\FrameworkBundle\Test\MailerAssertionsTrait;
 
 class RegisterControllerTest extends WebTestCase
 {
@@ -18,7 +18,8 @@ class RegisterControllerTest extends WebTestCase
         $buttonCrwalerNode = $crawler->selectButton('Register');
         $form =$buttonCrwalerNode->form();
 
-        $user="UserPrueba_6@gmail.com";
+        $user="UserPrueba_14@gmail.com";
+
         $form['registration_form[email]']=$user;
         $form['registration_form[agreeTerms]']=true;
         $form['registration_form[plainPassword]']='contraseña';
@@ -26,14 +27,36 @@ class RegisterControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
         $client->submit($form);
-        
+
+        //TEST MAILER
+
+        $this->assertEmailCount(1);
+
+        $this->assertNotNull($email = $this->getMailerMessage());
+        $this->assertEmailHtmlBodyContains($email, 'Hi! Please confirm your email!');
+
+        //TEST USUARIO CREADO CORRECTO
+
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOneByEmail($user);
         // Testea si el user creado esta persistido en la db
         $this->assertNotNull($testUser);
+    }
+    
+
+    public function testMismoUsuario(): void
+    {
+        $newUser= "UserPrueba_1@gmail.com";
+
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail($newUser);
+
+        $this->assertNotNull($testUser);        
 
     }
-    //registro incorrecto
+
+    //REGISTRO INCORRECTO TEST
     public function testNotRegister(): void
     {
         $client = static::createClient();
